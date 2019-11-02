@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="talon_api.handler.url_download_request" class="Talon\ApiBundle\Handler\UrlDownloadRequestHandler">
+            <call method="setManager">
+                <argument type="service" id="doctrine.orm.entity_manager"/>
+            </call>
+            <call method="setRepository">
+                <argument type="expression">
+                    service('doctrine.orm.entity_manager').getRepository('TalonApiBundle:UrlDownloadRequest')
+                </argument>
+            </call>
+            <call method="setFormFactory">
+                <argument type="service" id="form.factory" />
+            </call>
+        </service>
+        <service id="talon_api.controller.url_download_request_controller" class="Talon\ApiBundle\Controller\UrlDownloadRequestController">
+            <call method="setHandler">
+                <argument type="service" id="talon_api.handler.url_download_request" />
+            </call>
+        </service>
+    </services>
+</container>

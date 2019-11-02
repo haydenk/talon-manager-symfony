@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Urldownloadrequest</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ urlDownloadRequest.id }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ urlDownloadRequest.url }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ urlDownloadRequest.status }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if urlDownloadRequest.createdAt %}{{ urlDownloadRequest.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if urlDownloadRequest.updatedAt %}{{ urlDownloadRequest.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Createdby</th>
+                <td>{{ urlDownloadRequest.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Updatedby</th>
+                <td>{{ urlDownloadRequest.updatedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('url-download-request_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('url-download-request_edit', { 'id': urlDownloadRequest.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,56 @@
+version: '3.7'
+services:
+  api:
+    image: talon_api:poc
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: "${DOCKER_USER_ID}"
+    links:
+      - mariadb
+    volumes:
+      - .:/var/www/html
+      - ~/.composer:/var/www/.composer
+      - ~/.ssh:/var/www/.ssh
+    restart: always
+
+  web:
+    image: nginx:alpine
+    ports:
+      - 8000:80
+    volumes:
+      - .:/var/www/html:ro
+      - ./api.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - api
+    restart: always
+
+  mariadb:
+    image: mariadb:5
+    ports:
+      - 3306:3306
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: talon
+      MYSQL_DATABASE: talon
+      MYSQL_USER: talon
+      MYSQL_PASSWORD: talon
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+    volumes:
+      - ./mysql_data:/var/lib/mysql 
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    links:
+      - mariadb:local
+    restart: always
+    environment:
+      - ADMINER_DESIGN=pepa-linha
+      - ADMINER_PLUGINS

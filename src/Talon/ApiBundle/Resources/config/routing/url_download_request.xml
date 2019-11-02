@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="url_download_request_index" path="/" methods="GET">
+        <default key="_controller">talon_api.controller.url_download_request_controller:index</default>
+    </route>
+
+    <route id="url_download_request_new" path="/" methods="POST">
+        <default key="_controller">talon_api.controller.url_download_request_controller:create</default>
+    </route>
+
+    <route id="url_download_request_show" path="/{id}" methods="GET">
+        <default key="_controller">talon_api.controller.url_download_request_controller:show</default>
+    </route>
+
+    <route id="url_download_request_edit" path="/{id}" methods="PUT|PATCH">
+        <default key="_controller">talon_api.controller.url_download_request_controller:edit</default>
+    </route>
+
+    <route id="url_download_request_delete" path="/{id}" methods="DELETE">
+        <default key="_controller">talon_api.controller.url_download_request_controller:delete</default>
+    </route>
+
+</routes>

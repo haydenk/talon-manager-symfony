@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Urldownloadrequests list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Url</th>
+                <th>Status</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Createdby</th>
+                <th>Updatedby</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for urlDownloadRequest in urlDownloadRequests %}
+            <tr>
+                <td><a href="{{ path('url-download-request_show', { 'id': urlDownloadRequest.id }) }}">{{ urlDownloadRequest.id }}</a></td>
+                <td>{{ urlDownloadRequest.url }}</td>
+                <td>{{ urlDownloadRequest.status }}</td>
+                <td>{% if urlDownloadRequest.createdAt %}{{ urlDownloadRequest.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if urlDownloadRequest.updatedAt %}{{ urlDownloadRequest.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ urlDownloadRequest.createdBy }}</td>
+                <td>{{ urlDownloadRequest.updatedBy }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('url-download-request_show', { 'id': urlDownloadRequest.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('url-download-request_edit', { 'id': urlDownloadRequest.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('url-download-request_new') }}">Create a new urlDownloadRequest</a>
+        </li>
+    </ul>
+{% endblock %}

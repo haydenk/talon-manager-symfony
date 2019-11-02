@@ -1,0 +1,17 @@
+Talon\ApiBundle\Entity\UrlDownloadRequest:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+    url:
+      expose: true
+    status:
+      expose: true
+  relations:
+    -
+      rel: self
+      href:
+        route: url_download_request_show
+        parameters:
+          id: expr(object.getId())
+        absolute: true
